@@ -1,0 +1,117 @@
+
+<head>
+<title>Checking Tool</title> 
+<link href="goog.css" rel="stylesheet" type="text/css"> <link rel="icon" type="image/ico" href="/tools/dlpage/res/chrome/images/chrome-16.png"> <link rel="icon" href="http://www.erlsindia.co.in/images/favicon.ico" type="image/vnd.microsoft.icon" /><link rel="icon" href="http://www.erlsindia.co.in/images/favicon.ico" type="image/vnd.microsoft.icon"/><script language="javascript" src="http://www.erlsindia.co.in/js/DisableCtrlU.js"></script><script type="text/javascript">document.oncontextmenu=new Function("return false");</script></head> <link href="dlpage.css" rel="stylesheet" type="text/css">   <script type="text/javascript" src="gu-util.js">
+</script> <script type="text/javascript">
+  function runTagParamsHook(tag, opt_guid) {return tag;}
+  function runThankYouQueryHook(query) {return query;}
+ function runGetAppsPageHook(apps) {return apps;}
+  var referer = "http://www.google.co.in/chrome?hl/x3den/x26brand/x3dCHMI";
+  function resetButtons(name) {
+    var buttons = document.getElementsByName(name);
+    for (i = 0; i < buttons.length; ++i) {
+      buttons[i].disabled = false;
+    }
+  }
+  function showThrobber(isVisible) {
+    var divThrobber = document.getElementById('throbber');
+    var imgThrobber = document.getElementById('throbber-img');
+    if (!divThrobber || !imgThrobber) {
+      return;
+    }
+    if (!isVisible) {
+      divThrobber.style.display = 'none';
+    }
+    
+    imgThrobber.src = isVisible ?
+      
+        "chrome_throbber_fast_16.gif"/*tpa=http://www.google.co.in/tools/dlpage/res/chrome/images/chrome_throbber_fast_16.gif*/
+      
+        : "";
+    if (isVisible) {
+      divThrobber.style.display = 'inline';
+    }
+  }
+  
+  function getApps() {
+    var apps = new Array();
+      apps.push(_GU_createAppInfo(
+          "{8A69D345-D564-463C-AFF1-A69D9E530F96}",
+          "Erls ElementSix",
+          "false",
+          runTagParamsHook(
+              "\x26brand\x3dCHMI\x26installdataindex\x3dhomepagepromo",
+              "{8A69D345-D564-463C-AFF1-A69D9E530F96}")));
+    return runGetAppsPageHook(apps);
+  }
+  function areStatsEnabled() {
+    var statcb = document.getElementById("statcb");
+    return (statcb && statcb.checked);
+  }
+    
+  
+  function sendDlPagePing(stage, installSource) {
+    var img = new Image();
+    var extra = GU_buildGlobalExtra(
+          "en", areStatsEnabled());
+    var tag = GU_BuildTag(getApps(), extra);
+    img.src = '//tools.google.com/service/update2/dlpageping?' +
+        tag +
+        '&stage=' + stage +
+        '&installsource=' + installSource;
+  }
+  
+  _GU_OnloadHandlerAdd(
+    function() {
+      if (isOneClickEnabled()) {
+      _GU_SetupOneClick();
+      }
+    }, 0); // front of list
+  
+  _GU_OnloadHandlerAdd(
+    function(pagename) {
+      sendDlPagePing(pagename, getInstallSource());
+    });  // added to end of body.onload handler list
+    
+function runGetAppsPageHook(apps) {
+  try {
+    var app = apps[0];
+    if (_GU_isOneClickAvailable() &&
+        window.google.update.oneclick.getInstalledVersion(app.guid, true)) {
+      app.needsAdmin = true;
+    }
+  } catch (err) {
+  }
+  return apps;
+}
+
+</script>  <script type="text/javascript">
+  function goCancelled() {
+  this.document.close();
+  }
+
+  function getConfigOptions(tag) {
+    try {
+      if (tag.match(/installdataindex=([^&]+)/) && document.configOptions
+          && document.configOptions.cboption1.checked) {
+        return tag.replace(/installdataindex=([^&]+)/,
+            'installdataindex=$1-defaultbrowser');
+      } else if (document.configOptions
+          && document.configOptions.cboption1.checked) {
+        return tag + '\x26installdataindex\x3d' + 'defaultbrowser';
+      } else {
+        return tag;
+      }
+    } catch (e) {
+      return tag;
+    }
+  }
+  function runTagParamsHook(tag, opt_guid) {
+    return getConfigOptions(tag);
+  }
+  function runThankYouQueryHook(query) {
+    query = query || '\x3f';
+    return getConfigOptions(query);
+  }    
+</script>
+<div id="container"><noscript>You need a JavaScript-capable browser to download this software. <a href="#">Click here for instructions</a> on how to enable JavaScript in your browser.</noscript>  <div id="header" style="height: 5px"> </div> <div id="main"> <div id="tos"><iframe src="check/Html5Check.html" style="width: 762px; height: 380px;"></iframe> <br> <p><a href="#">Printer-friendly version</a></p>  <div style="position: relative; width: 100%; left: 1px; top: 2px;"><div id="throbber"><img id="throbber-img" width="16" height="16" alt="" src="ajaxImage.jpg"></div> <div style="display: inline;"></div> </div></div></div> </div>
